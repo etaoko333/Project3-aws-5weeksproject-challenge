@@ -1,0 +1,109 @@
+# 📘 Project 3: Deploy a Custom Apache Web Server on Amazon EC2
+
+
+This project is part of the **AWS 5-Week Challenge** by Chigozie and focuses on launching and configuring a custom Apache web server on an EC2 instance using **Amazon Linux 2023**. The entire setup is automated using **User Data**, including a beautifully styled personal webpage.
+
+---
+
+## 🚀 Project Summary
+- 🖥️ Launch an EC2 instance using Amazon Linux 2023
+- 🔐 Set up a Security Group to allow HTTP and SSH
+- ⚙️ Automate Apache installation and HTML page creation with User Data
+- 🌍 Host a personalized web page
+
+---
+
+## 🛠️ Technologies Used
+- Amazon EC2
+- Amazon Linux 2023
+- Apache Web Server (httpd)
+- User Data Scripting
+- HTML + CSS
+- AWS Security Groups
+
+---
+
+## 🔧 Steps to Reproduce
+
+### 1. **Launch EC2 Instance**
+- **Name**: Custom-Apache-Web-Server
+- **AMI**: Amazon Linux 2023
+- **Instance Type**: t2.micro
+- **Key Pair**: Proceed without key pair (use EC2 Connect)
+- **Network Settings**:
+  - Auto-assign Public IP: Enabled
+  - Security Group:
+    - Allow HTTP (80) from Anywhere
+    - Allow SSH (22) from My IP
+
+### 2. **Paste the following in User Data**
+```bash
+#!/bin/bash
+dnf update -y
+dnf install -y httpd
+systemctl start httpd
+systemctl enable httpd
+chown -R ec2-user:ec2-user /var/www/html
+cat <<EOF > /var/www/html/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to My Custom Apache Server</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+    }
+    h1 { color: #333; }
+    p { color: #666; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to My Custom Apache Web Server!</h1>
+    <p>Hosted on an Amazon Linux 2023 EC2 Instance.</p>
+    <p>This page was deployed automatically using AWS User Data.</p>
+    <hr>
+    <p><strong>I’m an enthusiastic DevOps Engineer actively exploring opportunities.</strong></p>
+    <p>This project gave me hands-on experience deploying secure, automated solutions in the cloud — and boosted my confidence in AWS infrastructure.</p>
+  </div>
+</body>
+</html>
+EOF
+systemctl restart httpd
+```
+
+### 3. **Access Your Web Page**
+- Copy the Public IPv4 address of your EC2 instance
+- Open your browser and visit: `http://<your-public-ip>`
+- You should see your custom web page! 🎉
+
+---
+
+## 📷 Screenshot
+![Apache Welcome Page](screenshot.png) *(Upload your browser screenshot here)*
+
+---
+
+## 👨‍💻 Author
+**Your Name** — *Aspiring DevOps Engineer, open to work*
+
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com) or fork the project to try it out!
+
+---
+
+## 🏁 Outcome
+- ✅ Built a real EC2 server
+- ✅ Automated provisioning using User Data
+- ✅ Customized frontend hosted directly in Apache
+
+---
+
+## 📌 Tags
+`AWS` `EC2` `Apache` `DevOps` `UserData` `AmazonLinux2023` `CloudProjects` `OpenToWork`
